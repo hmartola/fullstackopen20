@@ -47,9 +47,10 @@ app.post('/api/persons', function (req, res) {
     }
     if (persons.some(p => p.name === body.name))
         return res.status(400).json({error: 'name already exists'})
-    else    
+    else {   
         persons = persons.concat(person)
         res.json(person)
+    }
 })
 
 app.get('/', function (req, res) {
