@@ -56,7 +56,10 @@ app.post('/api/persons', function (req, res) {
 })
 
 app.get('/', function (req, res) {
-    res.send(`<p>${generateID()}</p>`)
+    res.send(`<h3>Welcome, available pages:</h3>
+    <p>/info</p>
+    <p>/api/persons</p>
+    <p>/api/persons/[insert id]<p/>`)
 })
 
 app.get('/api/persons', function (req, res) {
@@ -85,7 +88,7 @@ app.delete('/api/persons/:id', function (req, res) {
     res.status(204).end()
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
