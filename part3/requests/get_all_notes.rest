@@ -1,2 +1,2 @@
-//GET http://localhost:3001/api/persons
-GET https://lit-crag-17522.herokuapp.com/api/persons/
+GET http://localhost:3001/api/persons
+//GET https://lit-crag-17522.herokuapp.com/api/persons/

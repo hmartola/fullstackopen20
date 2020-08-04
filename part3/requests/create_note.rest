@@ -1,9 +1,9 @@
-//POST http://localhost:3001/api/persons
-POST https://lit-crag-17522.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
+//POST https://lit-crag-17522.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "Jesus",
+    "name": "Me",
     "number": "343432"
      
 }

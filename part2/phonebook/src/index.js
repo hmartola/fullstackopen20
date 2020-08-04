@@ -49,7 +49,6 @@ const App = () => {
                 setErrMessage(null)
               }, 3000)
             })
-          //window.location.reload(true);
         }
     else {
         personService
@@ -63,7 +62,13 @@ const App = () => {
               setMessage(null)
             }, 3000)
           })
-        console.log("added", event.target) 
+          .catch(error => {
+            setErrMessage(error.response.data.error)
+            setTimeout(() => {
+              setErrMessage(null)
+            }, 5000)
+          })
+        //console.log("added", event.target) 
       }
     }
 
@@ -84,7 +89,6 @@ const App = () => {
             setErrMessage(null)
           }, 3000)
         })
-      //window.location.reload(true);
     }
   }
 
