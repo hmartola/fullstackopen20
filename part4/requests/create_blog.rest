@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs
+//POST https://lit-crag-17522.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+    "title": "myWeek",
+    "author": "Hemingway",
+    "url": "h.eming",
+    "likes": 420 
+     
+}
