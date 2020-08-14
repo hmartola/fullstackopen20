@@ -3,9 +3,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "myWeek",
-    "author": "Hemingway",
-    "url": "h.eming",
-    "likes": 420 
+    "title": "",
+    "author": "",
+    "url": ""
+    //"likes":  
      
 }
