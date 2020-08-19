@@ -58,11 +58,12 @@ test('id property is defined', async () => {
 })
 
 test('a new blog can be added', async () => {
+    
     const newBlog = {
         title: 'Test to Add',
         author: 'me',
         url: 'unknown',
-        likes: 101
+        likes: 101,
     }
     await api
         .post('/api/blogs')
@@ -108,6 +109,20 @@ test('missing content leads to a 400 bad request', async () => {
         .post('/api/blogs')
         .send(newBlog)
         .expect(400)
+        .expect('Content-Type', /application\/json/)
+})
+
+test('adding blog without token leads to 401 unauthorized', async () => {
+    const newBlog = {
+        title: 'noToken',
+        author: 'token',
+        url: 'noo',
+        likes:  5,
+    }
+    const res = await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(401)
         .expect('Content-Type', /application\/json/)
 })
 

@@ -1,11 +1,13 @@
 POST http://localhost:3003/api/blogs
-//POST https://lit-crag-17522.herokuapp.com/api/persons
+
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiaWQiOiI1ZjNiYWMyODIzZTAxMjIwZTRlN2EyYjUiLCJpYXQiOjE1OTc4NDkyMDF9.2GsSZ_o6ITTKtrTx3Mrn8lyz4gbii_AK3ynvfLdKjJE
 
 {
-    "title": "",
-    "author": "",
-    "url": ""
-    //"likes":  
+    "title": "does vs code rest client work?",
+    "author": "prob not",
+    "url": "postman works",
+    "likes": 22,
+    "userId": "5f3bac2823e01220e4e7a2b5"
      
 }
