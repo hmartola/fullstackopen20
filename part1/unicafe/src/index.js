@@ -21,32 +21,25 @@ const Statistics = ({good, neutral, bad}) => {
     <h3>Statistics:</h3>
     <table>
       <tbody>
-      <tr>
-      <td><p>{"good:"}</p></td>
-      <td><p>{good}</p></td>
-      </tr>
-      <tr>
-      <td><p>{"neutral:"}</p></td>
-      <td><p>{neutral}</p></td>
-      </tr>
-      <tr>
-      <td><p>{"bad:"}</p></td>
-      <td><p>{bad}</p></td>
-      </tr>
-      <tr>
-      <td><p>{"total:"}</p></td>
-      <td><p>{total}</p></td>
-      </tr>
-      <tr>
-      <td><p>{"average:"}</p></td>
-      <td><p>{avg}</p></td>
-      </tr>
-      <tr>
-      <td><p>{"positive:"}</p></td>
-      <td><p>{posAvg + " %"}</p></td>
-      </tr>
+      <Statistic title="good" value={good}/>
+      <Statistic title="neutral" value={neutral}/>
+      <Statistic title="bad" value={bad}/>
+      <Statistic title="total" value={total}/>
+      <Statistic title="average" value={avg}/>
+      <Statistic title="positive" value={posAvg + " %"}/>
       </tbody>
     </table>
+  </div>
+  )
+}
+
+const Statistic = ({title, value}) => {
+  return (
+  <div>
+    <tr>
+      <td>{title}</td>
+      <td>{value}</td>
+    </tr>
   </div>
   )
 }
