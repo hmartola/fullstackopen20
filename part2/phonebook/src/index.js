@@ -11,6 +11,7 @@ import ErrorMsg from './components/ErrorMsg'
 
 
 const App = () => {
+  
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
@@ -104,9 +105,8 @@ const App = () => {
     setFilter(event.target.value)
   }
 
-  const filterPersons = (array, search) => {
-    return array.filter(e => e.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-  }
+  const searchFilter = persons.filter(person => 
+    person.name.toLowerCase().includes(filter))
 
   const hook = () => {
     console.log("effect")
@@ -139,7 +139,7 @@ const App = () => {
       
       <h2>Numbers</h2>
       
-        {filterPersons(persons, filter).map((names) =>
+        {searchFilter.map((names) =>
         <Names key={names.name} names={names} delName={() => deleteName(names)}/>)}
           
     </div>
