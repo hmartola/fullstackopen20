@@ -7,22 +7,23 @@ const Weather = ({capital}) => {
     const [wind, setWind] = useState([])
     const key = process.env.REACT_APP_API_KEY
 
-    const hook = () => {
+    const weather_url = `https://api.openweathermap.org/data/2.5/weather?q=${capital}&units=metric&appid=${key}`
+
+    useEffect(() => {
     axios
-    .get(`https://api.openweathermap.org/data/2.5/weather?q=${capital}&units=metric&appid=${key}`)
+    .get(weather_url)
     .then(res => {
         setWeather(res.data.weather)
         setMain(res.data.main)
         setWind(res.data.wind)
     })
-    }
-    useEffect(hook, [])
+    }, [weather_url])
 
     return (
         <div>
             {weather.map(w => (<div key={w.id}><p><b>{w.main}</b> ({w.description})</p></div>))}
-            <p><b>temperature:</b> {main.temp} celsius</p>
-            <p><b>feels like:</b> {main.feels_like} celsius</p>
+            <p><b>temperature:</b> {Math.round(main.temp)} C</p>
+            <p><b>feels like:</b> {Math.round(main.feels_like)} C</p>
             <p><b>wind: </b> {wind.speed} m/s</p>
         </div>
     )

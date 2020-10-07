@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import axios from 'axios'
 import Countries from './components/Countries'
@@ -7,16 +7,6 @@ function App() {
 
   const [data, setData] = useState([])
   const [search, setSearch] = useState('')
-
-
-  useEffect(() => {
-  axios.get('https://restcountries.eu/rest/v2/all')
-    .then(response => {
-      console.log("promise fulfilled")
-      setData(response.data) 
-    })
-  }, [])
-
   
   const clickedShow = (view) => {
     axios
@@ -29,6 +19,11 @@ function App() {
   const handleSearchEdit = (event) => {
     event.preventDefault()
     setSearch(event.target.value)
+    axios
+    .get('https://restcountries.eu/rest/v2/all')
+    .then(response => {
+      setData(response.data) 
+    })
   }
   
    const filter = data.filter(country => 
