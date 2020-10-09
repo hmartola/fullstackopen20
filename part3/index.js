@@ -8,7 +8,8 @@ const app = express()
 
 app.use(express.static('build'))
 app.use(express.json())
-app.use(morgan('tiny'))
+morgan.token('body', req => JSON.stringify(req.body))
+app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body'))
 app.use(cors())
 
 app.post('/api/persons', function (req, res, next) {
@@ -21,7 +22,6 @@ app.post('/api/persons', function (req, res, next) {
 
   person
     .save()
-  //.then(saved => saved.toJSON())
     .then(savedPerson => {
       res.json(savedPerson)
     })
@@ -76,7 +76,7 @@ app.get('/info', function (req, res, next) {
 })
 
 app.delete('/api/persons/:id', function (req, res, next) {
-  Person.findByIdAndRemove(req.params.id).then(res => {
+  Person.findByIdAndRemove(req.params.id).then(() => {
     res.status(204).end()
   })
     .catch(error => next(error))
