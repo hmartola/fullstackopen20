@@ -58,7 +58,20 @@ test('id property is defined', async () => {
 })
 
 test('a new blog can be added', async () => {
+    const newUser = {
+        username: `${Date.now()}`,
+        name: 'Token',
+        password: 'p455w0rd'
+    }
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(200)
     
+    const login = await api
+        .post('/api/login')
+        .send({username: newUser.username, password: newUser.password})
+
     const newBlog = {
         title: 'Test to Add',
         author: 'me',
@@ -67,6 +80,7 @@ test('a new blog can be added', async () => {
     }
     await api
         .post('/api/blogs')
+        .set('Authorization', `bearer ${login.body.token}`)
         .send(newBlog)
         .expect(200)
         .expect('Content-Type', /application\/json/)
@@ -80,6 +94,20 @@ test('a new blog can be added', async () => {
 })
 
 test('missing likes is by default 0', async () => {
+    const newUser = {
+        username: `${Date.now()}`,
+        name: 'Token',
+        password: 'p455w0rd'
+    }
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(200)
+    
+    const login = await api
+        .post('/api/login')
+        .send({username: newUser.username, password: newUser.password})
+
     const newBlog = {
         title: 'Zero likes',
         author: 'zeroo',
@@ -87,6 +115,7 @@ test('missing likes is by default 0', async () => {
     }
     await api
         .post('/api/blogs')
+        .set('Authorization', `bearer ${login.body.token}`)
         .send(newBlog)
         .expect(200)
         .expect('Content-Type', /application\/json/)
@@ -99,6 +128,20 @@ test('missing likes is by default 0', async () => {
 })
 
 test('missing content leads to a 400 bad request', async () => {
+    const newUser = {
+        username: `${Date.now()}`,
+        name: 'Token',
+        password: 'p455w0rd'
+    }
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(200)
+    
+    const login = await api
+        .post('/api/login')
+        .send({username: newUser.username, password: newUser.password})
+
     const newBlog = {
         title: 'hm',
         author: 'hm',
@@ -107,6 +150,7 @@ test('missing content leads to a 400 bad request', async () => {
     }
     const res = await api
         .post('/api/blogs')
+        .set('Authorization', `bearer ${login.body.token}`)
         .send(newBlog)
         .expect(400)
         .expect('Content-Type', /application\/json/)
