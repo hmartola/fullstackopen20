@@ -28,20 +28,20 @@ const BlogForm = ({ createBlog }) => {
   }
 
   return (
-    <div>
+    <div className="formDiv">
       <h2>Create New Blog</h2>
       <form onSubmit={addBlog}>
         <div>
                 title
-          <input type="text" value={title} name="title" onChange={titleChange}></input>
+          <input id="title" type="text" value={title} name="title" onChange={titleChange}></input>
         </div>
         <div>
                 author
-          <input type="text" value={author} name="author" onChange={authorChange}></input>
+          <input id="author" type="text" value={author} name="author" onChange={authorChange}></input>
         </div>
         <div>
                 url
-          <input type="text" value={url} name="url" onChange={urlChange}></input>
+          <input id="url" type="text" value={url} name="url" onChange={urlChange}></input>
         </div>
         <button type="submit">create blog</button>
       </form>
@@ -50,41 +50,3 @@ const BlogForm = ({ createBlog }) => {
 }
 
 export default BlogForm
-
-/**<form onSubmit={addBlog}>
-      <div>
-        title
-        <input type="text" value={title} name="title" onChange={({ target }) => setTitle(target.value)}></input>
-      </div>
-      <div>
-        author
-        <input type="text" value={author} name="author" onChange={({ target }) => setAuthor(target.value)}></input>
-      </div>
-      <div>
-        url
-        <input type="text" value={url} name="url" onChange={({ target }) => setUrl(target.value)}></input>
-      </div>
-      <button type="submit">create</button>
-
-      const BlogForm = ({addBlog, titleChange, authorChange, urlChange, title, author, url}) => {
-    return (
-        <div>
-            <h2>Create New Blog</h2>
-            <form onSubmit={addBlog}>
-            <div>
-                title
-                <input type="text" value={title} name="title" onChange={titleChange}></input>
-            </div>
-            <div>
-                author
-                <input type="text" value={author} name="author" onChange={authorChange}></input>
-            </div>
-            <div>
-                url
-                <input type="text" value={url} name="url" onChange={urlChange}></input>
-            </div>
-            <button type="submit">create blog</button>
-            </form>
-        </div>
-    )
-}*/
