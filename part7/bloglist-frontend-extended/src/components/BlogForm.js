@@ -29,7 +29,7 @@ const BlogForm = () => {
       author: author,
       url: url
     }
-    if ((content.title && content.author && content.url) !== '')  {
+    if ((content.title.trim() && content.author.trim() && content.url.trim()) !== '')  {
       dispatch(createBlog(content))
       dispatch(showMessage(`A new blog '${content.title}' by '${content.author}' created!`, 5))
     } else {
@@ -46,7 +46,7 @@ const BlogForm = () => {
 
   return (
     <div className="formDiv">
-      <h2>Create New Blog</h2>
+      <h3>Create New Blog</h3>
 
       <div style={hideWhenVisible}>
         <button onClick={() => setBlogVisible(true)}>new blog</button>

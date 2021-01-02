@@ -9,6 +9,10 @@ const Message = () => {
     borderWidth: 1
   }
 
+  if (!message) {
+    return null
+  }
+
   return (
     <div style={style}>
       {message}

@@ -1,4 +1,12 @@
-import React, { useState } from 'react'
+/*
+
+OLD FILE, CAN PROB BE REMOVED
+
+*/
+
+
+
+/* import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const Blog = ({ blog, like, remove }) => {
@@ -51,4 +59,4 @@ Blog.propTypes = {
 
 }
 
-export default Blog
+export default Blog */

@@ -19,6 +19,13 @@ blogsRouter.get('/:id', async (request, response) => {
       response.status(404).end()
   })
 
+blogsRouter.get('/:id/comments', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  if (blog) 
+    response.json(blog.comments)
+   else 
+    response.status(404).end()
+})
   
 blogsRouter.post('/', async (request, response) => {  
   const body = request.body
@@ -35,7 +42,7 @@ blogsRouter.post('/', async (request, response) => {
     author: body.author,
     url: body.url,
     likes: body.likes,
-    user: user._id
+    user: user._id,
   }) 
 
   const savedBlog = await blog.save()
@@ -43,6 +50,16 @@ blogsRouter.post('/', async (request, response) => {
   await user.save()
   response.json(savedBlog.toJSON())
   })
+
+blogsRouter.post('/:id/comments', async (request, response) => {
+  const body = request.body
+  const comment = body.comments
+  
+  const blog = await Blog.findById(request.params.id)
+  blog.comments = blog.comments.concat(comment)
+  const newComment = await blog.save()
+  response.json(newComment.toJSON())
+})
 
 
 blogsRouter.put('/:id', async (request, response) => {
