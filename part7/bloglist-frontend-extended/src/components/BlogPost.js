@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 // eslint-disable-next-line no-unused-vars
 import { likeBlog, removeBlog, addComment, getComments } from '../reducers/blogReducer'
-import { showMessage } from '../reducers/messageReducer'
 
 const BlogPost = () => {
 
@@ -11,11 +10,11 @@ const BlogPost = () => {
   const { id } = useParams()
   const allBlogs = useSelector(state => state.blogs)
   const blog = allBlogs.find(match => match.id === id)
+  const history = useHistory()
 
   const addLike = () => {
     try {
       dispatch(likeBlog(blog))
-      dispatch(showMessage(`Liked '${blog.title}'!`, 5))
     } catch (e) {
       console.log(e)
     }
@@ -34,8 +33,8 @@ const BlogPost = () => {
       const confirm = window.confirm(`Remove blog '${blog.title}' by '${blog.author}'?`)
       if (confirm) {
         dispatch(removeBlog(blog.id))
-        dispatch(showMessage('Removed blog', 5))
       }
+      history.push('/')
     } catch (e) {
       console.log(e)
     }
@@ -51,7 +50,6 @@ const BlogPost = () => {
     const handleCommentSubmit = (event) => {
       event.preventDefault()
       dispatch(addComment(blog.id, content))
-      dispatch(showMessage('Comment added!', 5))
       //dispatch(getComments(blog.id))
     }
 

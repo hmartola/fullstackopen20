@@ -1,5 +1,6 @@
 import loginService from '../services/login'
 import blogService from '../services/blogs'
+import { showMessage } from './messageReducer'
 
 const logReducer = (state = null, action) => {
   switch(action.type) {
@@ -20,25 +21,38 @@ const logReducer = (state = null, action) => {
 
 export const userLogin = (credentials) => {
   return async dispatch => {
-    const login = await loginService.login(credentials)
-    window.localStorage.setItem(
-      'loggedBlogappUser', JSON.stringify(login)
-    )
-    blogService.setToken(login.token)
+    try {
+      const login = await loginService.login(credentials)
+      window.localStorage.setItem(
+        'loggedBlogappUser', JSON.stringify(login)
+      )
+      blogService.setToken(login.token)
 
-    dispatch({
-      type: 'LOGIN',
-      data: login
-    })
+      dispatch({
+        type: 'LOGIN',
+        data: login
+      })
+      dispatch(showMessage({ type: 'ok', content: `Welcome ${login.username}` }, 5))
+
+    } catch (e) {
+      dispatch(showMessage({ type: 'error', content: 'Invalid password or username' }, 5))
+    }
   }
 }
 
 export const userLogout = () => {
-  window.localStorage.removeItem('loggedBlogappUser')
-  blogService.setToken(null)
-  return {
-    type: 'LOGOUT',
-    data: null
+  return async dispatch => {
+    try {
+      window.localStorage.removeItem('loggedBlogappUser')
+      blogService.setToken(null)
+      dispatch({
+        type: 'LOGOUT'
+      })
+      dispatch(showMessage({ type: 'ok', content: 'Logged out' }, 5))
+
+    } catch (e) {
+      dispatch(showMessage({ type: 'error', content: 'Error logging out' }, 5))
+    }
   }
 }
 

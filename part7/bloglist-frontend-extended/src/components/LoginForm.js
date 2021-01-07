@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { showMessage } from '../reducers/messageReducer'
 import { userLogin } from '../reducers/logReducer'
 import { useDispatch } from 'react-redux'
+import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = () => {
 
@@ -12,42 +12,35 @@ const LoginForm = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    try {
-      dispatch(userLogin({ username: username, password: password }))
-      setUsername('')
-      setPassword('')
-      dispatch(showMessage(`Welcome ${username}`, 5))
-
-    } catch (exception) {
-      dispatch(showMessage('invalid username or password', 5))
-      //console.log('logging in with', username, password)
-    }
+    dispatch(userLogin({ username: username, password: password }))
+    setUsername('')
+    setPassword('')
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
+    <Form onSubmit={handleLogin}>
+      <Form.Group>
+        <Form.Label>username</Form.Label>
+        <Form.Control
           id="username"
           type="text"
           value={username}
           name="Username"
           onChange={({ target }) => setUsername(target.value)}
         />
-      </div>
-      <div>
-        password
-        <input
+        <Form.Label>password</Form.Label>
+        <Form.Control
           id="password"
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
         />
-      </div>
-      <button id="loginButton" type="submit">login</button>
-    </form>
+        <div style={{ marginTop: 10, marginLeft: 5 }}>
+          <Button variant="success" type="submit">login</Button>
+        </div>
+      </Form.Group>
+    </Form>
   )
 }
 

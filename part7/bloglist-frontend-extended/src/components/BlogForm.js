@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
-import { showMessage } from '../reducers/messageReducer'
 
 const BlogForm = () => {
   const [title, setTitle] = useState('')
@@ -20,22 +19,15 @@ const BlogForm = () => {
   }
 
   const dispatch = useDispatch()
-  //const blog = useSelector(state => state.blogs)
 
   const addBlog = (event) => {
     event.preventDefault()
     const content = {
-      title: title,
-      author: author,
-      url: url
+      title: title.trim(),
+      author: author.trim(),
+      url: url.trim()
     }
-    if ((content.title.trim() && content.author.trim() && content.url.trim()) !== '')  {
-      dispatch(createBlog(content))
-      dispatch(showMessage(`A new blog '${content.title}' by '${content.author}' created!`, 5))
-    } else {
-      dispatch(showMessage('Could not create blog, check all input fields', 5))
-    }
-
+    dispatch(createBlog(content))
     setTitle('')
     setAuthor('')
     setUrl('')
@@ -45,8 +37,8 @@ const BlogForm = () => {
   const showWhenVisible = { display: blogVisible ? '' : 'none' }
 
   return (
-    <div className="formDiv">
-      <h3>Create New Blog</h3>
+    <div className="formDiv" style={{ marginTop: 20, marginBottom: 30, padding: 10, borderRadius: 5, background: 'darkgray' }}>
+      <h5>Create New Blog</h5>
 
       <div style={hideWhenVisible}>
         <button onClick={() => setBlogVisible(true)}>new blog</button>

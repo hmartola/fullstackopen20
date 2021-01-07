@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Navbar,  Nav, Button } from 'react-bootstrap'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import Message from './components/Message'
@@ -9,7 +10,6 @@ import BlogList from './components/BlogList'
 import BlogPost from './components/BlogPost'
 import UserInfo from './components/UserInfo'
 import UserBlogs from './components/UserBlogs'
-import { showMessage } from './reducers/messageReducer'
 import { initBlogs } from './reducers/blogReducer'
 import { userLogout, loggedIn } from './reducers/logReducer'
 import { userList } from './reducers/userReducer'
@@ -35,7 +35,6 @@ const App = () => {
 
   const logout = () => {
     dispatch(userLogout())
-    dispatch(showMessage('Logged out', 5))
   }
 
   const NavBar = () => {
@@ -43,17 +42,28 @@ const App = () => {
       paddingRight: 5
     }
     return (
-      <div style={{ marginTop: 10, padding: 5, backgroundColor: 'lightgray' }}>
-        <Link style={padding} to="/">blogs</Link>
-        <Link style={padding} to="/users">users</Link>
-        {login.name} logged in <button onClick={() => logout()}>logout</button>
-      </div>
+      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark'>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/">blogs</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/users">users</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              {login.name} logged in <Button onClick={() => logout()} size='sm' variant='danger'>logout</Button>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 
   if (login === null) {
     return (
-      <div>
+      <div className='container'>
         <Message />
         <h2>Log in to use application</h2>
         <LoginForm />
@@ -62,11 +72,11 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <Router>
         <Message />
         <NavBar />
-        <h1>Bloglist</h1>
+        <h1 className='text-center' style={{ color: '#0080ff', marginTop: 10 }}>Bloglist</h1>
         <Switch>
           <Route path='/users/:id'>
             <UserBlogs />

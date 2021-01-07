@@ -1,10 +1,10 @@
-const messageReducer = (state = '', action) => {
+const messageReducer = (state = { type: '', content: '' }, action) => {
   switch (action.type) {
   case 'SET_MESSAGE':
     return action.content
 
   case 'HIDE_MESSAGE':
-    return ''
+    return { type: '', content: '' }
 
   default:
     return state
